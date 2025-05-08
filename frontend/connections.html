@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <link rel="stylesheet" href="style.css">
+  <title>Analyse des Connections LinkedIn</title>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <div class="top-actions">
+        <button onclick="location.href='index.html'" class="btn-tertiary">
+          ← Retour à l'accueil
+        </button>
+        <span class="action-info">Étudiez vos connexions LinkedIn par entreprise et fonction</span>
+      </div>
+      <h1>🔗 Analyse des Connections LinkedIn</h1>
+      <p class="subtitle">
+        Importez votre fichier <strong>Connections.csv</strong> (exporté depuis LinkedIn) pour visualiser
+        les 10 entreprises où vous avez le plus de contacts et classifier vos relations par fonction.
+      </p>
+    </header>
+
+    <section class="card">
+      <form id="connections-form">
+        <div class="field">
+          <label>📂 Sélectionnez Connections.csv</label>
+          <input type="file" name="connections" accept=".csv" required>
+        </div>
+        <button class="btn-primary" type="submit">Analyser</button>
+      </form>
+      <div id="loader" class="loader hidden">
+        <div class="spinner"></div>
+      </div>
+    </section>
+
+    <section class="card results">
+      <h2>📊 Top 10 Entreprises</h2>
+      <canvas id="connections-chart"></canvas>
+      <button id="download-chart" class="btn-secondary hidden">📥 Télécharger le graphique</button>
+
+      <div class="table-controls">
+        <button id="download-table" class="btn-secondary hidden">📥 Télécharger le tableau</button>
+      </div>
+      <table id="positions-table"></table>
+    </section>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script src="connections.js"></script>
+</body>
+</html>

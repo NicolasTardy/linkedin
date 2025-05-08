@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <link rel="stylesheet" href="style.css">
+  <title>Optimiseur LinkedIn</title>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <div class="top-actions">
+        <button onclick="location.href='connections.html'" class="btn-tertiary">
+          🔗 Analyse des Connections LinkedIn
+        </button>
+        <span class="action-info">Consultez la répartition de vos contacts par entreprise et fonction</span>
+      </div>
+      <h1>🔍 Optimisation de votre Profil LinkedIn</h1>
+      <p class="subtitle">
+        Aucune donnée n’est stockée. Téléchargez vos conseils ; vos fichiers CSV (Positions.csv, Skills.csv, Education.csv) ne sont pas conservés.
+      </p>
+      <p class="subtitle">
+        Pour exporter vos données depuis LinkedIn :
+        Paramètres & Confidentialité → Obtenir une copie de vos données → Sélectionnez <strong>Connexions</strong>, <strong>Expériences professionnelles</strong>, <strong>Compétences</strong>, <strong>Formation</strong> → Téléchargez le fichier CSV.
+      </p>
+    </header>
+
+    <section class="card">
+      <form id="upload-form">
+        <div class="field">
+          <label>📂 Positions.csv</label>
+          <input type="file" name="positions" accept=".csv" required>
+        </div>
+        <div class="field">
+          <label>📂 Skills.csv</label>
+          <input type="file" name="skills" accept=".csv" required>
+        </div>
+        <div class="field">
+          <label>📂 Education.csv</label>
+          <input type="file" name="education" accept=".csv" required>
+        </div>
+        <div class="field">
+          <label>🔗 Lien de l'offre :</label>
+          <input type="url" name="jobLink" placeholder="https://linkedin.com/jobs/..." required>
+        </div>
+        <button class="btn-primary" type="submit">Lancer l’analyse</button>
+      </form>
+      <div id="loader" class="loader hidden">
+        <div class="spinner"></div>
+        <div class="loader-text">Analyse...</div>
+      </div>
+    </section>
+
+    <section class="results card">
+      <h2>📊 Résultat :</h2>
+      <pre id="result"></pre>
+      <button id="download-btn" class="btn-secondary hidden">📥 Télécharger les conseils</button>
+    </section>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
