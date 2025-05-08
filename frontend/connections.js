@@ -8,6 +8,7 @@ const positionsTable = document.getElementById('positions-table');
 
 form.addEventListener('submit', async (e) => {
   e.preventDefault();
+  // Affiche le spinner, cache tout le reste
   loader.classList.remove('hidden');
   downloadChartBtn.classList.add('hidden');
   downloadTableBtn.classList.add('hidden');
@@ -15,16 +16,15 @@ form.addEventListener('submit', async (e) => {
 
   try {
     const formData = new FormData(form);
-    const response = await fetch('http://localhost:3001/api/connections', {
+    // Appel relatif vers la même origine
+    const response = await fetch('/api/connections', {
       method: 'POST',
       body: formData
     });
 
-    // Si le serveur renvoie une erreur (400, 500…)
     if (!response.ok) {
-      // Essaie de lire le JSON d’erreur
+      // Lecture éventuelle d’un message d’erreur JSON
       let err = await response.json().catch(() => null);
-      loader.classList.add('hidden');
       const msg = err?.error || response.statusText;
       alert(`Erreur serveur : ${msg}`);
       return;
@@ -52,9 +52,11 @@ form.addEventListener('submit', async (e) => {
       '<tr><th>First Name</th><th>Last Name</th><th>Position</th></tr>';
     rows.forEach(r => {
       const tr = document.createElement('tr');
-      tr.innerHTML = `<td>${r['First Name']}</td>
-                      <td>${r['Last Name']}</td>
-                      <td>${r['Position']}</td>`;
+      tr.innerHTML = `
+        <td>${r['First Name']}</td>
+        <td>${r['Last Name']}</td>
+        <td>${r['Position']}</td>
+      `;
       positionsTable.appendChild(tr);
     });
     downloadTableBtn.classList.remove('hidden');
@@ -63,6 +65,7 @@ form.addEventListener('submit', async (e) => {
     console.error(err);
     alert('Erreur inattendue lors de l’analyse.');
   } finally {
+    // Toujours masquer le loader à la fin
     loader.classList.add('hidden');
   }
 });
@@ -70,7 +73,9 @@ form.addEventListener('submit', async (e) => {
 // Télécharger le graphique
 downloadChartBtn.addEventListener('click', () => {
   const link = document.createElement('a');
-  link.href = document.getElementById('connections-chart').toDataURL('image/png');
+  link.href = document
+    .getElementById('connections-chart')
+    .toDataURL('image/png');
   link.download = 'connections_chart.png';
   link.click();
 });
